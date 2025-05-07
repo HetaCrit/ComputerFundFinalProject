@@ -1,3 +1,6 @@
+//keynote: I don't know why but I'm getting warnings and codespaces wont tell me what the warning is inside this VScode enviroment, but I mean it still runs!
+
+
 package src;
 
 import java.io.*;
@@ -25,13 +28,26 @@ public class StoreFront {
         load();
         boolean done = false;
         while (!done) {
-            switch (menu()) {
-                case 1 -> AddOrUpdateProduct(); 
-                case 2 -> viewInventory();
-                case 3 -> simulateSales();
-                case 4 -> done = true;
+            int choice = menu();
+            switch (choice) {
+                case 1:
+                    AddOrUpdateProduct();
+                    break;
+                case 2:
+                    viewInventory();
+                    break;
+                case 3:
+                    simulateSales();
+                    break;
+                case 4:
+                    done = true;
+                    break;
+                default:
+                    // unreachable
+                    break;
             }
         }
+
         save();
         System.out.println("Bye - data saved!");
     }
@@ -91,13 +107,22 @@ public class StoreFront {
         System.out.println("Sort by:");
         System.out.println("1) Name   2) Quantity   3) Amount Sold   4) Revenue");
         int pick = InputValidator.getInt(">", 1, 4);
-        Comparator<Product> cmp =
-                switch (pick) {
-                    case 2 -> Comparator.comparingInt(Product::getQuantity).reversed();
-                    case 3 -> Comparator.comparingInt(Product::getSold).reversed();
-                    case 4 -> Comparator.comparingDouble(Product::getRevenue).reversed();
-                    default -> Comparator.comparing(Product::getName);
-                };
+        Comparator<Product> cmp;
+        switch (pick) {
+            case 2:
+                cmp = Comparator.comparingInt(Product::getQuantity).reversed();
+                break;
+            case 3:
+                cmp = Comparator.comparingInt(Product::getSold).reversed();
+                break;
+            case 4:
+                cmp = Comparator.comparingDouble(Product::getRevenue).reversed();
+                break;
+            case 1:
+            default:
+                cmp = Comparator.comparing(Product::getName);
+                break;
+        }
         inventory.sort(cmp);
 
         System.out.println("\n-- Current Inventory --");

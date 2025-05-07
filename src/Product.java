@@ -29,15 +29,17 @@ public class Product {
     }
 
     //getter and setter methods for the product class.
-    public String getName()          { return name; }
-    public String getCategory()      { return category; }
-    public double getPrice()         { return price; }
-    public int    getQuantity()      { return quantity; }
-    public int    getSold()          { return sold; }
-    public double getRevenue()       { return sold * price; }
+    public String getName()    { return name; }
+    public String getCategory(){ return category; }
+    public double getPrice()   { return price; }
+    public int    getQuantity(){ return quantity; }
+    public int    getSold()    { return sold; }
+    public double getRevenue() { return sold * price; }
 
     public void   setQuantity(int q) { this.quantity = q; }
     public void   addSold(int n)     { this.sold += n; }
+
+
 
     //CSV DATA Handling && updating
     public String toCsv() {
@@ -62,6 +64,8 @@ public class Product {
     }
     private static String escape(String s) { return s.replace(",", "\\,"); }
     private static String unescape(String s){ return s.replace("\\,", ","); }
+
+
 
 
     //toString method to print the data in a readable format.
